@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Encouragement Scratch Card</title>
+  <title>Social Service Encouragement Scratch Card</title>
   <style>
     :root {
       --bg1: #f6f1e8;
@@ -11,14 +11,14 @@
       --card: #ffffff;
       --accent: #2f7d6d;
       --accent-dark: #1d4f45;
+      --accent-soft: rgba(47,125,109,0.12);
       --gold: #d9a441;
       --text: #24312f;
       --muted: #66736f;
+      --border: rgba(29,79,69,0.16);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -26,6 +26,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
       background:
         radial-gradient(circle at top left, rgba(217,164,65,0.18), transparent 35%),
+        radial-gradient(circle at bottom right, rgba(47,125,109,0.16), transparent 35%),
         linear-gradient(135deg, var(--bg1), var(--bg2));
       color: var(--text);
       display: flex;
@@ -36,42 +37,74 @@
 
     .page {
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
       text-align: center;
     }
 
     .badge {
       display: inline-block;
-      background: rgba(47,125,109,0.12);
+      background: var(--accent-soft);
       color: var(--accent-dark);
       border: 1px solid rgba(47,125,109,0.18);
       border-radius: 999px;
       padding: 8px 14px;
       font-size: 0.82rem;
-      font-weight: 700;
+      font-weight: 750;
       letter-spacing: 0.02em;
       margin-bottom: 14px;
     }
 
     h1 {
       margin: 0 0 8px;
-      font-size: clamp(1.8rem, 6vw, 2.35rem);
-      line-height: 1.05;
+      font-size: clamp(1.78rem, 6vw, 2.42rem);
+      line-height: 1.06;
       color: var(--accent-dark);
     }
 
     .intro {
-      margin: 0 auto 22px;
+      margin: 0 auto 18px;
       color: var(--muted);
       font-size: 1rem;
       line-height: 1.5;
-      max-width: 390px;
+      max-width: 410px;
+    }
+
+    .chooser {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 0 auto 18px;
+      max-width: 410px;
+      background: rgba(255,255,255,0.7);
+      padding: 8px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      box-shadow: 0 8px 24px rgba(44, 74, 67, 0.08);
+    }
+
+    .choice-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 11px 12px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      background: transparent;
+      color: var(--accent-dark);
+      cursor: pointer;
+      box-shadow: none;
+      transition: all 0.18s ease;
+    }
+
+    .choice-btn.active {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 8px 20px rgba(47,125,109,0.22);
     }
 
     .scratch-wrap {
       position: relative;
-      width: min(100%, 410px);
-      height: 285px;
+      width: min(100%, 420px);
+      height: 300px;
       margin: 0 auto;
       border-radius: 26px;
       overflow: hidden;
@@ -95,24 +128,24 @@
 
     .small-title {
       color: var(--gold);
-      font-size: 0.82rem;
-      font-weight: 800;
+      font-size: 0.8rem;
+      font-weight: 850;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       margin-bottom: 12px;
     }
 
     .quote {
-      font-size: clamp(1.02rem, 4.3vw, 1.36rem);
-      font-weight: 750;
-      line-height: 1.32;
+      font-size: clamp(1rem, 4.2vw, 1.32rem);
+      font-weight: 760;
+      line-height: 1.34;
       color: var(--accent-dark);
       margin: 0;
     }
 
     .footer-note {
       margin-top: 14px;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
       color: var(--muted);
       line-height: 1.4;
     }
@@ -136,8 +169,8 @@
       padding: 25px;
       color: #fff;
       text-shadow: 0 2px 8px rgba(0,0,0,0.25);
-      font-weight: 800;
-      font-size: 1.32rem;
+      font-weight: 850;
+      font-size: 1.3rem;
       line-height: 1.25;
       transition: opacity 0.35s ease;
     }
@@ -155,22 +188,29 @@
       border-radius: 999px;
       padding: 12px 18px;
       font-size: 0.95rem;
-      font-weight: 750;
+      font-weight: 760;
       background: var(--accent);
       color: #fff;
       box-shadow: 0 10px 24px rgba(47,125,109,0.25);
       cursor: pointer;
     }
 
-    button:active {
-      transform: translateY(1px);
-    }
+    button:active { transform: translateY(1px); }
 
     .credit {
       margin-top: 18px;
       font-size: 0.78rem;
       color: #7b8783;
       line-height: 1.4;
+    }
+
+    @media (max-width: 380px) {
+      .chooser {
+        border-radius: 22px;
+        grid-template-columns: 1fr;
+      }
+
+      .scratch-wrap { height: 315px; }
     }
   </style>
 </head>
@@ -179,15 +219,19 @@
     <div class="badge">For Social Service Practitioners</div>
     <h1>Thank You for the Work You Carry</h1>
     <p class="intro">
-      This small card is created to acknowledge your daily work of care, support, advocacy and presence.
-      Scratch to reveal a message for you.
+      Choose an encouragement message or a reflection question, then scratch the card to receive a small moment of appreciation.
     </p>
 
-    <section class="scratch-wrap" aria-label="Scratch card encouragement message">
+    <div class="chooser" aria-label="Choose message type">
+      <button class="choice-btn active" id="encouragementBtn" onclick="setMode('encouragement')">Encouragement</button>
+      <button class="choice-btn" id="reflectionBtn" onclick="setMode('reflection')">Reflection</button>
+    </div>
+
+    <section class="scratch-wrap" aria-label="Scratch card message">
       <div class="message">
-        <div class="small-title">For You Today</div>
+        <div class="small-title" id="messageTypeLabel">Encouragement</div>
         <p class="quote" id="quoteText"></p>
-        <div class="footer-note">
+        <div class="footer-note" id="footerNote">
           Your service matters — to individuals, families, colleagues and the wider community.
         </div>
       </div>
@@ -205,420 +249,191 @@
   </main>
 
   <script>
-    const quotes = [
-      "Your steady presence can become a safe place for someone who is still learning to trust support. May you remember that your work has meaning.",
-      "Pause and remember: what small moment today reminded you why this work matters? May you remember that your work has meaning.",
-      "The way you listen with patience may help someone feel seen when words are hard to find. May you remember that your work has meaning.",
-      "What is one sign of hope you noticed recently, even if it was small? May you remember that your work has meaning.",
-      "Every respectful conversation you hold protects dignity, even when the outcome is not immediate. May you remember that your work has meaning.",
-      "Which conversation this week taught you something about courage, patience or dignity? May you remember that your work has meaning.",
-      "Your care is not small; it may be the turning point someone remembers years from now. May you remember that your work has meaning.",
-      "What helped you stay grounded in a difficult moment? May you remember that your work has meaning.",
-      "When you show up with calmness, you help create space for hope to return. May you remember that your work has meaning.",
-      "Who or what has quietly supported you while you support others? May you remember that your work has meaning.",
-      "The work you do may be quiet, but its impact can echo across families and communities. May you remember that your work has meaning.",
-      "What boundary has helped you care sustainably? May you remember that your work has meaning.",
-      "You carry more than tasks; you carry compassion, judgment, boundaries and hope. May you remember that your work has meaning.",
-      "What is one strength you brought into your work today? May you remember that your work has meaning.",
-      "Your professionalism helps turn difficult moments into moments where healing can begin. May you remember that your work has meaning.",
-      "What is one thing you can release, knowing you have done your part with care? May you remember that your work has meaning.",
-      "Each act of care adds to a larger story of safety, dignity and possibility. May you remember that your work has meaning.",
-      "Where did you see resilience in a client, colleague or yourself recently? May you remember that your work has meaning.",
-      "The consistency you bring may be the most stabilising thing someone experiences this week. May you remember that your work has meaning.",
-      "What is one small win worth naming before the day ends? May you remember that your work has meaning.",
-      "You may not always see the progress, but your presence can still plant important seeds. May you remember that your work has meaning.",
-      "What kind of encouragement would you offer a colleague today? May you remember that your work has meaning.",
-      "Your patience is a form of strength that helps people move at a pace they can manage. May you remember that your work has meaning.",
-      "What does compassionate professionalism look like for you this season? May you remember that your work has meaning.",
-      "Thank you for meeting people not only where they are, but with respect for who they can become. May you remember that your work has meaning.",
-      "Where have you seen progress that may not appear in numbers yet? May you remember that your work has meaning.",
-      "You help hold hope when others feel too tired to hold it for themselves. May you remember that your work has meaning.",
-      "What reminder do you need when outcomes take longer than expected? May you remember that your work has meaning.",
-      "The kindness you practise is not soft work; it is courageous and skilled work. May you remember that your work has meaning.",
-      "How can you honour both the client’s journey and your own limits? May you remember that your work has meaning.",
-      "Your work reminds people that they are not forgotten in their hardest seasons. May you remember that your work has meaning.",
-      "What is one practice that helps you return to calm? May you remember that your work has meaning.",
-      "Even when change is slow, your steady support matters deeply. May you remember that your work has meaning.",
-      "Who might need to hear a word of appreciation from you this week? May you remember that your work has meaning.",
-      "You bring structure to uncertainty and humanity to systems that can feel overwhelming. May you remember that your work has meaning.",
-      "What part of your work has quietly shaped someone’s sense of safety? May you remember that your work has meaning.",
-      "The way you protect dignity in small moments is part of meaningful social change. May you remember that your work has meaning.",
-      "What is one lesson this work has taught you about humanity? May you remember that your work has meaning.",
-      "Thank you for choosing compassion again, especially when the day is difficult. May you remember that your work has meaning.",
-      "Where can you be kind to yourself as you continue to serve? May you remember that your work has meaning.",
-      "Your ability to stay grounded helps others feel less alone in their struggle. May you remember that your work has meaning.",
-      "What helped you choose patience when the situation was not easy? May you remember that your work has meaning.",
-      "A single supportive conversation can become a doorway to courage for someone else. May you remember that your work has meaning.",
-      "What is one thing you handled with more wisdom than before? May you remember that your work has meaning.",
-      "You may be one person in the system, but to someone, you may be the person who stayed. May you remember that your work has meaning.",
-      "How have you grown as a practitioner in the way you listen? May you remember that your work has meaning.",
-      "Your work is a reminder that care can be both practical and powerful. May you remember that your work has meaning.",
-      "What is one moment of dignity you helped protect recently? May you remember that your work has meaning.",
-      "Every time you advocate with wisdom, you help restore someone’s sense of possibility. May you remember that your work has meaning.",
-      "What does hope look like when it is small but real? May you remember that your work has meaning.",
-      "The empathy you show does not erase hardship, but it can help someone face it. May you remember that your work has meaning.",
-      "What do you want to remember about the people behind the cases? May you remember that your work has meaning.",
-      "Your calm voice may be the bridge between crisis and next steps. May you remember that your work has meaning.",
-      "How can you celebrate progress without waiting for perfection? May you remember that your work has meaning.",
-      "The respect you give people in vulnerable moments is a gift with lasting value. May you remember that your work has meaning.",
-      "What is one thing your future self may thank you for learning now? May you remember that your work has meaning.",
-      "Thank you for holding space for stories that are complex, painful and deeply human. May you remember that your work has meaning.",
-      "Which value guided you today, even quietly? May you remember that your work has meaning.",
-      "You help people take the next step when the whole journey feels too heavy. May you remember that your work has meaning.",
-      "What does sustainable care mean for you this week? May you remember that your work has meaning.",
-      "The work may be unseen by many, but it is deeply felt by those you serve. May you remember that your work has meaning.",
-      "What is one question that can help you listen more deeply? May you remember that your work has meaning.",
-      "Your integrity shapes trust, and trust is often where change begins. May you remember that your work has meaning.",
-      "What is one way you can refill after giving so much of yourself? May you remember that your work has meaning.",
-      "You turn policies, resources and conversations into real support for real lives. May you remember that your work has meaning.",
-      "Where did teamwork make the work lighter recently? May you remember that your work has meaning.",
-      "Your courage to keep caring matters more than you may realise. May you remember that your work has meaning.",
-      "What strength in your team deserves to be named? May you remember that your work has meaning.",
-      "In moments when answers are not simple, your presence still brings strength. May you remember that your work has meaning.",
-      "What is one reminder that helps you keep both heart and boundaries? May you remember that your work has meaning.",
-      "You help people feel valued not because their problems are solved, but because they are not alone. May you remember that your work has meaning.",
-      "What small act of care from today should not be overlooked? May you remember that your work has meaning.",
-      "Your listening can give someone enough strength to try again. May you remember that your work has meaning.",
-      "What part of your work today reflected dignity in action? May you remember that your work has meaning.",
-      "The hope you offer is not always loud; sometimes it is simply staying present. May you remember that your work has meaning.",
-      "How can you hold hope without carrying everything alone? May you remember that your work has meaning.",
-      "Your role matters because people need both practical help and human connection. May you remember that your work has meaning.",
-      "What is one thing you are learning to do with more grace? May you remember that your work has meaning.",
-      "Thank you for being part of a profession that chooses dignity, patience and care. May you remember that your work has meaning.",
-      "What would you say to another practitioner who feels unseen today? May you remember that your work has meaning.",
-      "Your steady presence can become a safe place for someone who is still learning to trust support. Thank you for serving with heart and professionalism.",
-      "Pause and remember: what small moment today reminded you why this work matters? Thank you for serving with heart and professionalism.",
-      "The way you listen with patience may help someone feel seen when words are hard to find. Thank you for serving with heart and professionalism.",
-      "What is one sign of hope you noticed recently, even if it was small? Thank you for serving with heart and professionalism.",
-      "Every respectful conversation you hold protects dignity, even when the outcome is not immediate. Thank you for serving with heart and professionalism.",
-      "Which conversation this week taught you something about courage, patience or dignity? Thank you for serving with heart and professionalism.",
-      "Your care is not small; it may be the turning point someone remembers years from now. Thank you for serving with heart and professionalism.",
-      "What helped you stay grounded in a difficult moment? Thank you for serving with heart and professionalism.",
-      "When you show up with calmness, you help create space for hope to return. Thank you for serving with heart and professionalism.",
-      "Who or what has quietly supported you while you support others? Thank you for serving with heart and professionalism.",
-      "The work you do may be quiet, but its impact can echo across families and communities. Thank you for serving with heart and professionalism.",
-      "What boundary has helped you care sustainably? Thank you for serving with heart and professionalism.",
-      "You carry more than tasks; you carry compassion, judgment, boundaries and hope. Thank you for serving with heart and professionalism.",
-      "What is one strength you brought into your work today? Thank you for serving with heart and professionalism.",
-      "Your professionalism helps turn difficult moments into moments where healing can begin. Thank you for serving with heart and professionalism.",
-      "What is one thing you can release, knowing you have done your part with care? Thank you for serving with heart and professionalism.",
-      "Each act of care adds to a larger story of safety, dignity and possibility. Thank you for serving with heart and professionalism.",
-      "Where did you see resilience in a client, colleague or yourself recently? Thank you for serving with heart and professionalism.",
-      "The consistency you bring may be the most stabilising thing someone experiences this week. Thank you for serving with heart and professionalism.",
-      "What is one small win worth naming before the day ends? Thank you for serving with heart and professionalism.",
-      "You may not always see the progress, but your presence can still plant important seeds. Thank you for serving with heart and professionalism.",
-      "What kind of encouragement would you offer a colleague today? Thank you for serving with heart and professionalism.",
-      "Your patience is a form of strength that helps people move at a pace they can manage. Thank you for serving with heart and professionalism.",
-      "What does compassionate professionalism look like for you this season? Thank you for serving with heart and professionalism.",
-      "Thank you for meeting people not only where they are, but with respect for who they can become. Thank you for serving with heart and professionalism.",
-      "Where have you seen progress that may not appear in numbers yet? Thank you for serving with heart and professionalism.",
-      "You help hold hope when others feel too tired to hold it for themselves. Thank you for serving with heart and professionalism.",
-      "What reminder do you need when outcomes take longer than expected? Thank you for serving with heart and professionalism.",
-      "The kindness you practise is not soft work; it is courageous and skilled work. Thank you for serving with heart and professionalism.",
-      "How can you honour both the client’s journey and your own limits? Thank you for serving with heart and professionalism.",
-      "Your work reminds people that they are not forgotten in their hardest seasons. Thank you for serving with heart and professionalism.",
-      "What is one practice that helps you return to calm? Thank you for serving with heart and professionalism.",
-      "Even when change is slow, your steady support matters deeply. Thank you for serving with heart and professionalism.",
-      "Who might need to hear a word of appreciation from you this week? Thank you for serving with heart and professionalism.",
-      "You bring structure to uncertainty and humanity to systems that can feel overwhelming. Thank you for serving with heart and professionalism.",
-      "What part of your work has quietly shaped someone’s sense of safety? Thank you for serving with heart and professionalism.",
-      "The way you protect dignity in small moments is part of meaningful social change. Thank you for serving with heart and professionalism.",
-      "What is one lesson this work has taught you about humanity? Thank you for serving with heart and professionalism.",
-      "Thank you for choosing compassion again, especially when the day is difficult. Thank you for serving with heart and professionalism.",
-      "Where can you be kind to yourself as you continue to serve? Thank you for serving with heart and professionalism.",
-      "Your ability to stay grounded helps others feel less alone in their struggle. Thank you for serving with heart and professionalism.",
-      "What helped you choose patience when the situation was not easy? Thank you for serving with heart and professionalism.",
-      "A single supportive conversation can become a doorway to courage for someone else. Thank you for serving with heart and professionalism.",
-      "What is one thing you handled with more wisdom than before? Thank you for serving with heart and professionalism.",
-      "You may be one person in the system, but to someone, you may be the person who stayed. Thank you for serving with heart and professionalism.",
-      "How have you grown as a practitioner in the way you listen? Thank you for serving with heart and professionalism.",
-      "Your work is a reminder that care can be both practical and powerful. Thank you for serving with heart and professionalism.",
-      "What is one moment of dignity you helped protect recently? Thank you for serving with heart and professionalism.",
-      "Every time you advocate with wisdom, you help restore someone’s sense of possibility. Thank you for serving with heart and professionalism.",
-      "What does hope look like when it is small but real? Thank you for serving with heart and professionalism.",
-      "The empathy you show does not erase hardship, but it can help someone face it. Thank you for serving with heart and professionalism.",
-      "What do you want to remember about the people behind the cases? Thank you for serving with heart and professionalism.",
-      "Your calm voice may be the bridge between crisis and next steps. Thank you for serving with heart and professionalism.",
-      "How can you celebrate progress without waiting for perfection? Thank you for serving with heart and professionalism.",
-      "The respect you give people in vulnerable moments is a gift with lasting value. Thank you for serving with heart and professionalism.",
-      "What is one thing your future self may thank you for learning now? Thank you for serving with heart and professionalism.",
-      "Thank you for holding space for stories that are complex, painful and deeply human. Thank you for serving with heart and professionalism.",
-      "Which value guided you today, even quietly? Thank you for serving with heart and professionalism.",
-      "You help people take the next step when the whole journey feels too heavy. Thank you for serving with heart and professionalism.",
-      "What does sustainable care mean for you this week? Thank you for serving with heart and professionalism.",
-      "The work may be unseen by many, but it is deeply felt by those you serve. Thank you for serving with heart and professionalism.",
-      "What is one question that can help you listen more deeply? Thank you for serving with heart and professionalism.",
-      "Your integrity shapes trust, and trust is often where change begins. Thank you for serving with heart and professionalism.",
-      "What is one way you can refill after giving so much of yourself? Thank you for serving with heart and professionalism.",
-      "You turn policies, resources and conversations into real support for real lives. Thank you for serving with heart and professionalism.",
-      "Where did teamwork make the work lighter recently? Thank you for serving with heart and professionalism.",
-      "Your courage to keep caring matters more than you may realise. Thank you for serving with heart and professionalism.",
-      "What strength in your team deserves to be named? Thank you for serving with heart and professionalism.",
-      "In moments when answers are not simple, your presence still brings strength. Thank you for serving with heart and professionalism.",
-      "What is one reminder that helps you keep both heart and boundaries? Thank you for serving with heart and professionalism.",
-      "You help people feel valued not because their problems are solved, but because they are not alone. Thank you for serving with heart and professionalism.",
-      "What small act of care from today should not be overlooked? Thank you for serving with heart and professionalism.",
-      "Your listening can give someone enough strength to try again. Thank you for serving with heart and professionalism.",
-      "What part of your work today reflected dignity in action? Thank you for serving with heart and professionalism.",
-      "The hope you offer is not always loud; sometimes it is simply staying present. Thank you for serving with heart and professionalism.",
-      "How can you hold hope without carrying everything alone? Thank you for serving with heart and professionalism.",
-      "Your role matters because people need both practical help and human connection. Thank you for serving with heart and professionalism.",
-      "What is one thing you are learning to do with more grace? Thank you for serving with heart and professionalism.",
-      "Thank you for being part of a profession that chooses dignity, patience and care. Thank you for serving with heart and professionalism.",
-      "What would you say to another practitioner who feels unseen today? Thank you for serving with heart and professionalism.",
-      "Your steady presence can become a safe place for someone who is still learning to trust support. This is care in action.",
-      "Pause and remember: what small moment today reminded you why this work matters? This is care in action.",
-      "The way you listen with patience may help someone feel seen when words are hard to find. This is care in action.",
-      "What is one sign of hope you noticed recently, even if it was small? This is care in action.",
-      "Every respectful conversation you hold protects dignity, even when the outcome is not immediate. This is care in action.",
-      "Which conversation this week taught you something about courage, patience or dignity? This is care in action.",
-      "Your care is not small; it may be the turning point someone remembers years from now. This is care in action.",
-      "What helped you stay grounded in a difficult moment? This is care in action.",
-      "When you show up with calmness, you help create space for hope to return. This is care in action.",
-      "Who or what has quietly supported you while you support others? This is care in action.",
-      "The work you do may be quiet, but its impact can echo across families and communities. This is care in action.",
-      "What boundary has helped you care sustainably? This is care in action.",
-      "You carry more than tasks; you carry compassion, judgment, boundaries and hope. This is care in action.",
-      "What is one strength you brought into your work today? This is care in action.",
-      "Your professionalism helps turn difficult moments into moments where healing can begin. This is care in action.",
-      "What is one thing you can release, knowing you have done your part with care? This is care in action.",
-      "Each act of care adds to a larger story of safety, dignity and possibility. This is care in action.",
-      "Where did you see resilience in a client, colleague or yourself recently? This is care in action.",
-      "The consistency you bring may be the most stabilising thing someone experiences this week. This is care in action.",
-      "What is one small win worth naming before the day ends? This is care in action.",
-      "You may not always see the progress, but your presence can still plant important seeds. This is care in action.",
-      "What kind of encouragement would you offer a colleague today? This is care in action.",
-      "Your patience is a form of strength that helps people move at a pace they can manage. This is care in action.",
-      "What does compassionate professionalism look like for you this season? This is care in action.",
-      "Thank you for meeting people not only where they are, but with respect for who they can become. This is care in action.",
-      "Where have you seen progress that may not appear in numbers yet? This is care in action.",
-      "You help hold hope when others feel too tired to hold it for themselves. This is care in action.",
-      "What reminder do you need when outcomes take longer than expected? This is care in action.",
-      "The kindness you practise is not soft work; it is courageous and skilled work. This is care in action.",
-      "How can you honour both the client’s journey and your own limits? This is care in action.",
-      "Your work reminds people that they are not forgotten in their hardest seasons. This is care in action.",
-      "What is one practice that helps you return to calm? This is care in action.",
-      "Even when change is slow, your steady support matters deeply. This is care in action.",
-      "Who might need to hear a word of appreciation from you this week? This is care in action.",
-      "You bring structure to uncertainty and humanity to systems that can feel overwhelming. This is care in action.",
-      "What part of your work has quietly shaped someone’s sense of safety? This is care in action.",
-      "The way you protect dignity in small moments is part of meaningful social change. This is care in action.",
-      "What is one lesson this work has taught you about humanity? This is care in action.",
-      "Thank you for choosing compassion again, especially when the day is difficult. This is care in action.",
-      "Where can you be kind to yourself as you continue to serve? This is care in action.",
-      "Your ability to stay grounded helps others feel less alone in their struggle. This is care in action.",
-      "What helped you choose patience when the situation was not easy? This is care in action.",
-      "A single supportive conversation can become a doorway to courage for someone else. This is care in action.",
-      "What is one thing you handled with more wisdom than before? This is care in action.",
-      "You may be one person in the system, but to someone, you may be the person who stayed. This is care in action.",
-      "How have you grown as a practitioner in the way you listen? This is care in action.",
-      "Your work is a reminder that care can be both practical and powerful. This is care in action.",
-      "What is one moment of dignity you helped protect recently? This is care in action.",
-      "Every time you advocate with wisdom, you help restore someone’s sense of possibility. This is care in action.",
-      "What does hope look like when it is small but real? This is care in action.",
-      "The empathy you show does not erase hardship, but it can help someone face it. This is care in action.",
-      "What do you want to remember about the people behind the cases? This is care in action.",
-      "Your calm voice may be the bridge between crisis and next steps. This is care in action.",
-      "How can you celebrate progress without waiting for perfection? This is care in action.",
-      "The respect you give people in vulnerable moments is a gift with lasting value. This is care in action.",
-      "What is one thing your future self may thank you for learning now? This is care in action.",
-      "Thank you for holding space for stories that are complex, painful and deeply human. This is care in action.",
-      "Which value guided you today, even quietly? This is care in action.",
-      "You help people take the next step when the whole journey feels too heavy. This is care in action.",
-      "What does sustainable care mean for you this week? This is care in action.",
-      "The work may be unseen by many, but it is deeply felt by those you serve. This is care in action.",
-      "What is one question that can help you listen more deeply? This is care in action.",
-      "Your integrity shapes trust, and trust is often where change begins. This is care in action.",
-      "What is one way you can refill after giving so much of yourself? This is care in action.",
-      "You turn policies, resources and conversations into real support for real lives. This is care in action.",
-      "Where did teamwork make the work lighter recently? This is care in action.",
-      "Your courage to keep caring matters more than you may realise. This is care in action.",
-      "What strength in your team deserves to be named? This is care in action.",
-      "In moments when answers are not simple, your presence still brings strength. This is care in action.",
-      "What is one reminder that helps you keep both heart and boundaries? This is care in action.",
-      "You help people feel valued not because their problems are solved, but because they are not alone. This is care in action.",
-      "What small act of care from today should not be overlooked? This is care in action.",
-      "Your listening can give someone enough strength to try again. This is care in action.",
-      "What part of your work today reflected dignity in action? This is care in action.",
-      "The hope you offer is not always loud; sometimes it is simply staying present. This is care in action.",
-      "How can you hold hope without carrying everything alone? This is care in action.",
-      "Your role matters because people need both practical help and human connection. This is care in action.",
-      "What is one thing you are learning to do with more grace? This is care in action.",
-      "Thank you for being part of a profession that chooses dignity, patience and care. This is care in action.",
-      "What would you say to another practitioner who feels unseen today? This is care in action.",
-      "Your steady presence can become a safe place for someone who is still learning to trust support. Your contribution matters to the wider community.",
-      "Pause and remember: what small moment today reminded you why this work matters? Your contribution matters to the wider community.",
-      "The way you listen with patience may help someone feel seen when words are hard to find. Your contribution matters to the wider community.",
-      "What is one sign of hope you noticed recently, even if it was small? Your contribution matters to the wider community.",
-      "Every respectful conversation you hold protects dignity, even when the outcome is not immediate. Your contribution matters to the wider community.",
-      "Which conversation this week taught you something about courage, patience or dignity? Your contribution matters to the wider community.",
-      "Your care is not small; it may be the turning point someone remembers years from now. Your contribution matters to the wider community.",
-      "What helped you stay grounded in a difficult moment? Your contribution matters to the wider community.",
-      "When you show up with calmness, you help create space for hope to return. Your contribution matters to the wider community.",
-      "Who or what has quietly supported you while you support others? Your contribution matters to the wider community.",
-      "The work you do may be quiet, but its impact can echo across families and communities. Your contribution matters to the wider community.",
-      "What boundary has helped you care sustainably? Your contribution matters to the wider community.",
-      "You carry more than tasks; you carry compassion, judgment, boundaries and hope. Your contribution matters to the wider community.",
-      "What is one strength you brought into your work today? Your contribution matters to the wider community.",
-      "Your professionalism helps turn difficult moments into moments where healing can begin. Your contribution matters to the wider community.",
-      "What is one thing you can release, knowing you have done your part with care? Your contribution matters to the wider community.",
-      "Each act of care adds to a larger story of safety, dignity and possibility. Your contribution matters to the wider community.",
-      "Where did you see resilience in a client, colleague or yourself recently? Your contribution matters to the wider community.",
-      "The consistency you bring may be the most stabilising thing someone experiences this week. Your contribution matters to the wider community.",
-      "What is one small win worth naming before the day ends? Your contribution matters to the wider community.",
-      "You may not always see the progress, but your presence can still plant important seeds. Your contribution matters to the wider community.",
-      "What kind of encouragement would you offer a colleague today? Your contribution matters to the wider community.",
-      "Your patience is a form of strength that helps people move at a pace they can manage. Your contribution matters to the wider community.",
-      "What does compassionate professionalism look like for you this season? Your contribution matters to the wider community.",
-      "Thank you for meeting people not only where they are, but with respect for who they can become. Your contribution matters to the wider community.",
-      "Where have you seen progress that may not appear in numbers yet? Your contribution matters to the wider community.",
-      "You help hold hope when others feel too tired to hold it for themselves. Your contribution matters to the wider community.",
-      "What reminder do you need when outcomes take longer than expected? Your contribution matters to the wider community.",
-      "The kindness you practise is not soft work; it is courageous and skilled work. Your contribution matters to the wider community.",
-      "How can you honour both the client’s journey and your own limits? Your contribution matters to the wider community.",
-      "Your work reminds people that they are not forgotten in their hardest seasons. Your contribution matters to the wider community.",
-      "What is one practice that helps you return to calm? Your contribution matters to the wider community.",
-      "Even when change is slow, your steady support matters deeply. Your contribution matters to the wider community.",
-      "Who might need to hear a word of appreciation from you this week? Your contribution matters to the wider community.",
-      "You bring structure to uncertainty and humanity to systems that can feel overwhelming. Your contribution matters to the wider community.",
-      "What part of your work has quietly shaped someone’s sense of safety? Your contribution matters to the wider community.",
-      "The way you protect dignity in small moments is part of meaningful social change. Your contribution matters to the wider community.",
-      "What is one lesson this work has taught you about humanity? Your contribution matters to the wider community.",
-      "Thank you for choosing compassion again, especially when the day is difficult. Your contribution matters to the wider community.",
-      "Where can you be kind to yourself as you continue to serve? Your contribution matters to the wider community.",
-      "Your ability to stay grounded helps others feel less alone in their struggle. Your contribution matters to the wider community.",
-      "What helped you choose patience when the situation was not easy? Your contribution matters to the wider community.",
-      "A single supportive conversation can become a doorway to courage for someone else. Your contribution matters to the wider community.",
-      "What is one thing you handled with more wisdom than before? Your contribution matters to the wider community.",
-      "You may be one person in the system, but to someone, you may be the person who stayed. Your contribution matters to the wider community.",
-      "How have you grown as a practitioner in the way you listen? Your contribution matters to the wider community.",
-      "Your work is a reminder that care can be both practical and powerful. Your contribution matters to the wider community.",
-      "What is one moment of dignity you helped protect recently? Your contribution matters to the wider community.",
-      "Every time you advocate with wisdom, you help restore someone’s sense of possibility. Your contribution matters to the wider community.",
-      "What does hope look like when it is small but real? Your contribution matters to the wider community.",
-      "The empathy you show does not erase hardship, but it can help someone face it. Your contribution matters to the wider community.",
-      "What do you want to remember about the people behind the cases? Your contribution matters to the wider community.",
-      "Your calm voice may be the bridge between crisis and next steps. Your contribution matters to the wider community.",
-      "How can you celebrate progress without waiting for perfection? Your contribution matters to the wider community.",
-      "The respect you give people in vulnerable moments is a gift with lasting value. Your contribution matters to the wider community.",
-      "What is one thing your future self may thank you for learning now? Your contribution matters to the wider community.",
-      "Thank you for holding space for stories that are complex, painful and deeply human. Your contribution matters to the wider community.",
-      "Which value guided you today, even quietly? Your contribution matters to the wider community.",
-      "You help people take the next step when the whole journey feels too heavy. Your contribution matters to the wider community.",
-      "What does sustainable care mean for you this week? Your contribution matters to the wider community.",
-      "The work may be unseen by many, but it is deeply felt by those you serve. Your contribution matters to the wider community.",
-      "What is one question that can help you listen more deeply? Your contribution matters to the wider community.",
-      "Your integrity shapes trust, and trust is often where change begins. Your contribution matters to the wider community.",
-      "What is one way you can refill after giving so much of yourself? Your contribution matters to the wider community.",
-      "You turn policies, resources and conversations into real support for real lives. Your contribution matters to the wider community.",
-      "Where did teamwork make the work lighter recently? Your contribution matters to the wider community.",
-      "Your courage to keep caring matters more than you may realise. Your contribution matters to the wider community.",
-      "What strength in your team deserves to be named? Your contribution matters to the wider community.",
-      "In moments when answers are not simple, your presence still brings strength. Your contribution matters to the wider community.",
-      "What is one reminder that helps you keep both heart and boundaries? Your contribution matters to the wider community.",
-      "You help people feel valued not because their problems are solved, but because they are not alone. Your contribution matters to the wider community.",
-      "What small act of care from today should not be overlooked? Your contribution matters to the wider community.",
-      "Your listening can give someone enough strength to try again. Your contribution matters to the wider community.",
-      "What part of your work today reflected dignity in action? Your contribution matters to the wider community.",
-      "The hope you offer is not always loud; sometimes it is simply staying present. Your contribution matters to the wider community.",
-      "How can you hold hope without carrying everything alone? Your contribution matters to the wider community.",
-      "Your role matters because people need both practical help and human connection. Your contribution matters to the wider community.",
-      "What is one thing you are learning to do with more grace? Your contribution matters to the wider community.",
-      "Thank you for being part of a profession that chooses dignity, patience and care. Your contribution matters to the wider community.",
-      "What would you say to another practitioner who feels unseen today? Your contribution matters to the wider community.",
-      "Your steady presence can become a safe place for someone who is still learning to trust support. May you be strengthened for the journey ahead.",
-      "Pause and remember: what small moment today reminded you why this work matters? May you be strengthened for the journey ahead.",
-      "The way you listen with patience may help someone feel seen when words are hard to find. May you be strengthened for the journey ahead.",
-      "What is one sign of hope you noticed recently, even if it was small? May you be strengthened for the journey ahead.",
-      "Every respectful conversation you hold protects dignity, even when the outcome is not immediate. May you be strengthened for the journey ahead.",
-      "Which conversation this week taught you something about courage, patience or dignity? May you be strengthened for the journey ahead.",
-      "Your care is not small; it may be the turning point someone remembers years from now. May you be strengthened for the journey ahead.",
-      "What helped you stay grounded in a difficult moment? May you be strengthened for the journey ahead.",
-      "When you show up with calmness, you help create space for hope to return. May you be strengthened for the journey ahead.",
-      "Who or what has quietly supported you while you support others? May you be strengthened for the journey ahead.",
-      "The work you do may be quiet, but its impact can echo across families and communities. May you be strengthened for the journey ahead.",
-      "What boundary has helped you care sustainably? May you be strengthened for the journey ahead.",
-      "You carry more than tasks; you carry compassion, judgment, boundaries and hope. May you be strengthened for the journey ahead.",
-      "What is one strength you brought into your work today? May you be strengthened for the journey ahead.",
-      "Your professionalism helps turn difficult moments into moments where healing can begin. May you be strengthened for the journey ahead.",
-      "What is one thing you can release, knowing you have done your part with care? May you be strengthened for the journey ahead.",
-      "Each act of care adds to a larger story of safety, dignity and possibility. May you be strengthened for the journey ahead.",
-      "Where did you see resilience in a client, colleague or yourself recently? May you be strengthened for the journey ahead.",
-      "The consistency you bring may be the most stabilising thing someone experiences this week. May you be strengthened for the journey ahead.",
-      "What is one small win worth naming before the day ends? May you be strengthened for the journey ahead.",
-      "You may not always see the progress, but your presence can still plant important seeds. May you be strengthened for the journey ahead.",
-      "What kind of encouragement would you offer a colleague today? May you be strengthened for the journey ahead.",
-      "Your patience is a form of strength that helps people move at a pace they can manage. May you be strengthened for the journey ahead.",
-      "What does compassionate professionalism look like for you this season? May you be strengthened for the journey ahead.",
-      "Thank you for meeting people not only where they are, but with respect for who they can become. May you be strengthened for the journey ahead.",
-      "Where have you seen progress that may not appear in numbers yet? May you be strengthened for the journey ahead.",
-      "You help hold hope when others feel too tired to hold it for themselves. May you be strengthened for the journey ahead.",
-      "What reminder do you need when outcomes take longer than expected? May you be strengthened for the journey ahead.",
-      "The kindness you practise is not soft work; it is courageous and skilled work. May you be strengthened for the journey ahead.",
-      "How can you honour both the client’s journey and your own limits? May you be strengthened for the journey ahead.",
-      "Your work reminds people that they are not forgotten in their hardest seasons. May you be strengthened for the journey ahead.",
-      "What is one practice that helps you return to calm? May you be strengthened for the journey ahead.",
-      "Even when change is slow, your steady support matters deeply. May you be strengthened for the journey ahead.",
-      "Who might need to hear a word of appreciation from you this week? May you be strengthened for the journey ahead.",
-      "You bring structure to uncertainty and humanity to systems that can feel overwhelming. May you be strengthened for the journey ahead.",
-      "What part of your work has quietly shaped someone’s sense of safety? May you be strengthened for the journey ahead.",
-      "The way you protect dignity in small moments is part of meaningful social change. May you be strengthened for the journey ahead.",
-      "What is one lesson this work has taught you about humanity? May you be strengthened for the journey ahead.",
-      "Thank you for choosing compassion again, especially when the day is difficult. May you be strengthened for the journey ahead.",
-      "Where can you be kind to yourself as you continue to serve? May you be strengthened for the journey ahead.",
-      "Your ability to stay grounded helps others feel less alone in their struggle. May you be strengthened for the journey ahead.",
-      "What helped you choose patience when the situation was not easy? May you be strengthened for the journey ahead.",
-      "A single supportive conversation can become a doorway to courage for someone else. May you be strengthened for the journey ahead.",
-      "What is one thing you handled with more wisdom than before? May you be strengthened for the journey ahead.",
-      "You may be one person in the system, but to someone, you may be the person who stayed. May you be strengthened for the journey ahead.",
-      "How have you grown as a practitioner in the way you listen? May you be strengthened for the journey ahead.",
-      "Your work is a reminder that care can be both practical and powerful. May you be strengthened for the journey ahead.",
-      "What is one moment of dignity you helped protect recently? May you be strengthened for the journey ahead.",
-      "Every time you advocate with wisdom, you help restore someone’s sense of possibility. May you be strengthened for the journey ahead.",
-      "What does hope look like when it is small but real? May you be strengthened for the journey ahead.",
-      "The empathy you show does not erase hardship, but it can help someone face it. May you be strengthened for the journey ahead.",
-      "What do you want to remember about the people behind the cases? May you be strengthened for the journey ahead.",
-      "Your calm voice may be the bridge between crisis and next steps. May you be strengthened for the journey ahead.",
-      "How can you celebrate progress without waiting for perfection? May you be strengthened for the journey ahead.",
-      "The respect you give people in vulnerable moments is a gift with lasting value. May you be strengthened for the journey ahead.",
-      "What is one thing your future self may thank you for learning now? May you be strengthened for the journey ahead.",
-      "Thank you for holding space for stories that are complex, painful and deeply human. May you be strengthened for the journey ahead.",
-      "Which value guided you today, even quietly? May you be strengthened for the journey ahead.",
-      "You help people take the next step when the whole journey feels too heavy. May you be strengthened for the journey ahead.",
-      "What does sustainable care mean for you this week? May you be strengthened for the journey ahead.",
-      "The work may be unseen by many, but it is deeply felt by those you serve. May you be strengthened for the journey ahead.",
-      "What is one question that can help you listen more deeply? May you be strengthened for the journey ahead.",
-      "Your integrity shapes trust, and trust is often where change begins. May you be strengthened for the journey ahead.",
-      "What is one way you can refill after giving so much of yourself? May you be strengthened for the journey ahead.",
-      "You turn policies, resources and conversations into real support for real lives. May you be strengthened for the journey ahead.",
-      "Where did teamwork make the work lighter recently? May you be strengthened for the journey ahead.",
-      "Your courage to keep caring matters more than you may realise. May you be strengthened for the journey ahead.",
-      "What strength in your team deserves to be named? May you be strengthened for the journey ahead.",
-      "In moments when answers are not simple, your presence still brings strength. May you be strengthened for the journey ahead.",
-      "What is one reminder that helps you keep both heart and boundaries? May you be strengthened for the journey ahead.",
-      "You help people feel valued not because their problems are solved, but because they are not alone. May you be strengthened for the journey ahead.",
-      "What small act of care from today should not be overlooked? May you be strengthened for the journey ahead.",
-      "Your listening can give someone enough strength to try again. May you be strengthened for the journey ahead.",
-      "What part of your work today reflected dignity in action? May you be strengthened for the journey ahead.",
-      "The hope you offer is not always loud; sometimes it is simply staying present. May you be strengthened for the journey ahead.",
-      "How can you hold hope without carrying everything alone? May you be strengthened for the journey ahead.",
-      "Your role matters because people need both practical help and human connection. May you be strengthened for the journey ahead.",
-      "What is one thing you are learning to do with more grace? May you be strengthened for the journey ahead.",
-      "Thank you for being part of a profession that chooses dignity, patience and care. May you be strengthened for the journey ahead.",
-      "What would you say to another practitioner who feels unseen today? May you be strengthened for the journey ahead."
-];
+    const encouragementBase = [
+      "Your steady presence can become a safe place for someone who is still learning to trust support.",
+      "The way you listen with patience may help someone feel seen when words are hard to find.",
+      "Every respectful conversation you hold protects dignity, even when the outcome is not immediate.",
+      "Your care is not small; it may be the turning point someone remembers years from now.",
+      "When you show up with calmness, you help create space for hope to return.",
+      "The work you do may be quiet, but its impact can echo across families and communities.",
+      "You carry more than tasks; you carry compassion, judgment, boundaries and hope.",
+      "Your professionalism helps turn difficult moments into moments where healing can begin.",
+      "Each act of care adds to a larger story of safety, dignity and possibility.",
+      "The consistency you bring may be the most stabilising thing someone experiences this week.",
+      "You may not always see the progress, but your presence can still plant important seeds.",
+      "Your patience is a form of strength that helps people move at a pace they can manage.",
+      "Thank you for meeting people not only where they are, but with respect for who they can become.",
+      "You help hold hope when others feel too tired to hold it for themselves.",
+      "The kindness you practise is not soft work; it is courageous and skilled work.",
+      "Your work reminds people that they are not forgotten in their hardest seasons.",
+      "Even when change is slow, your steady support matters deeply.",
+      "You bring structure to uncertainty and humanity to systems that can feel overwhelming.",
+      "The way you protect dignity in small moments is part of meaningful social change.",
+      "Thank you for choosing compassion again, especially when the day is difficult.",
+      "Your ability to stay grounded helps others feel less alone in their struggle.",
+      "A single supportive conversation can become a doorway to courage for someone else.",
+      "You may be one person in the system, but to someone, you may be the person who stayed.",
+      "Your work is a reminder that care can be both practical and powerful.",
+      "Every time you advocate with wisdom, you help restore someone’s sense of possibility.",
+      "The empathy you show does not erase hardship, but it can help someone face it.",
+      "Your calm voice may be the bridge between crisis and next steps.",
+      "The respect you give people in vulnerable moments is a gift with lasting value.",
+      "Thank you for holding space for stories that are complex, painful and deeply human.",
+      "You help people take the next step when the whole journey feels too heavy.",
+      "The work may be unseen by many, but it is deeply felt by those you serve.",
+      "Your integrity shapes trust, and trust is often where change begins.",
+      "You turn policies, resources and conversations into real support for real lives.",
+      "Your courage to keep caring matters more than you may realise.",
+      "In moments when answers are not simple, your presence still brings strength.",
+      "You help people feel valued not because their problems are solved, but because they are not alone.",
+      "Your listening can give someone enough strength to try again.",
+      "The hope you offer is not always loud; sometimes it is simply staying present.",
+      "Your role matters because people need both practical help and human connection.",
+      "Thank you for being part of a profession that chooses dignity, patience and care.",
+      "Your work gives people a chance to experience support with dignity.",
+      "The way you follow through can rebuild trust one step at a time.",
+      "Your quiet commitment helps keep hope alive in difficult systems and circumstances.",
+      "You bring humanity into moments that may otherwise feel procedural or cold.",
+      "The care you offer today may become courage for someone tomorrow.",
+      "Your wisdom helps people feel guided, not judged.",
+      "The way you respect each person’s pace reflects deep professional care.",
+      "Your service is a meaningful contribution to the well-being of our community.",
+      "You help people find language for pain, hope and next steps.",
+      "Your work matters even when the evidence of change appears slowly."
+    ];
+
+    const reflectionBase = [
+      "What small moment today reminded you why this work matters?",
+      "What is one sign of hope you noticed recently, even if it was small?",
+      "Which conversation this week taught you something about courage, patience or dignity?",
+      "What helped you stay grounded in a difficult moment?",
+      "Who or what has quietly supported you while you support others?",
+      "What boundary has helped you care sustainably?",
+      "What is one strength you brought into your work today?",
+      "What is one thing you can release, knowing you have done your part with care?",
+      "Where did you see resilience in a client, colleague or yourself recently?",
+      "What is one small win worth naming before the day ends?",
+      "What kind of encouragement would you offer a colleague today?",
+      "What does compassionate professionalism look like for you this season?",
+      "Where have you seen progress that may not appear in numbers yet?",
+      "What reminder do you need when outcomes take longer than expected?",
+      "How can you honour both the client’s journey and your own limits?",
+      "What is one practice that helps you return to calm?",
+      "Who might need to hear a word of appreciation from you this week?",
+      "What part of your work has quietly shaped someone’s sense of safety?",
+      "What is one lesson this work has taught you about humanity?",
+      "Where can you be kind to yourself as you continue to serve?",
+      "What helped you choose patience when the situation was not easy?",
+      "What is one thing you handled with more wisdom than before?",
+      "How have you grown as a practitioner in the way you listen?",
+      "What is one moment of dignity you helped protect recently?",
+      "What does hope look like when it is small but real?",
+      "What do you want to remember about the people behind the cases?",
+      "How can you celebrate progress without waiting for perfection?",
+      "What is one thing your future self may thank you for learning now?",
+      "Which value guided you today, even quietly?",
+      "What does sustainable care mean for you this week?",
+      "What is one question that can help you listen more deeply?",
+      "What is one way you can refill after giving so much of yourself?",
+      "Where did teamwork make the work lighter recently?",
+      "What strength in your team deserves to be named?",
+      "What is one reminder that helps you keep both heart and boundaries?",
+      "What small act of care from today should not be overlooked?",
+      "What part of your work today reflected dignity in action?",
+      "How can you hold hope without carrying everything alone?",
+      "What is one thing you are learning to do with more grace?",
+      "What would you say to another practitioner who feels unseen today?",
+      "What does it mean to serve with care and not lose yourself in the process?",
+      "Where did you notice courage in an ordinary moment?",
+      "What helps you remember that slow progress is still progress?",
+      "What is one moment where you chose curiosity over assumption?",
+      "How did you practise respect today in a practical way?",
+      "What has this work taught you about listening beyond words?",
+      "Where might you need support, and who can you reach out to?",
+      "What is one strength you noticed in a client or family recently?",
+      "What part of your work deserves quiet appreciation today?",
+      "How can you make space for rest without guilt?"
+    ];
+
+    const encouragementSuffix = [
+      "May you remember that your work has meaning.",
+      "Thank you for serving with heart and professionalism.",
+      "This is care in action.",
+      "Your contribution matters to the wider community.",
+      "May you be strengthened for the journey ahead.",
+      "Your work supports dignity, safety and hope.",
+      "The difference you make may be quiet, but it is real.",
+      "Thank you for being part of someone’s support system."
+    ];
+
+    const reflectionSuffix = [
+      "Take a quiet moment to name it.",
+      "Let the answer be honest, not perfect.",
+      "Hold the reflection gently.",
+      "Notice what this reveals about your practice.",
+      "Let this question help you pause, not pressure yourself.",
+      "Carry only what is yours to carry.",
+      "Use this as a small check-in with yourself.",
+      "Let this be a reminder to care for the carer too."
+    ];
+
+    function buildMessages(baseList, suffixList, targetCount) {
+      const messages = [];
+      let i = 0;
+
+      while (messages.length < targetCount) {
+        const base = baseList[i % baseList.length];
+        const suffix = suffixList[Math.floor(i / baseList.length) % suffixList.length];
+        const message = base + " " + suffix;
+
+        if (!messages.includes(message)) {
+          messages.push(message);
+        }
+
+        i++;
+      }
+
+      return messages;
+    }
+
+    const messageBank = {
+      encouragement: buildMessages(encouragementBase, encouragementSuffix, 200),
+      reflection: buildMessages(reflectionBase, reflectionSuffix, 200)
+    };
+
+    let currentMode = "encouragement";
 
     const canvas = document.getElementById("scratchCanvas");
     const ctx = canvas.getContext("2d");
     const instruction = document.getElementById("instruction");
     const quoteText = document.getElementById("quoteText");
+    const messageTypeLabel = document.getElementById("messageTypeLabel");
+    const footerNote = document.getElementById("footerNote");
+    const encouragementBtn = document.getElementById("encouragementBtn");
+    const reflectionBtn = document.getElementById("reflectionBtn");
 
     let isDrawing = false;
     let hasStarted = false;
 
-    function pickQuote() {
-      const randomIndex = Math.floor(Math.random() * quotes.length);
-      quoteText.textContent = quotes[randomIndex];
+    function pickMessage() {
+      const list = messageBank[currentMode];
+      const randomIndex = Math.floor(Math.random() * list.length);
+      quoteText.textContent = list[randomIndex];
+
+      if (currentMode === "encouragement") {
+        messageTypeLabel.textContent = "Encouragement";
+        footerNote.textContent = "Your service matters — to individuals, families, colleagues and the wider community.";
+      } else {
+        messageTypeLabel.textContent = "Reflection Question";
+        footerNote.textContent = "Take this as a gentle pause for your own care, learning and renewal.";
+      }
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      encouragementBtn.classList.toggle("active", mode === "encouragement");
+      reflectionBtn.classList.toggle("active", mode === "reflection");
+      resetCard();
     }
 
     function resizeCanvas() {
@@ -634,16 +449,23 @@
 
     function drawCover(width, height) {
       const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, "#6fa99c");
-      gradient.addColorStop(0.55, "#2f7d6d");
-      gradient.addColorStop(1, "#1d4f45");
+
+      if (currentMode === "encouragement") {
+        gradient.addColorStop(0, "#6fa99c");
+        gradient.addColorStop(0.55, "#2f7d6d");
+        gradient.addColorStop(1, "#1d4f45");
+      } else {
+        gradient.addColorStop(0, "#8aa7c7");
+        gradient.addColorStop(0.55, "#4f789d");
+        gradient.addColorStop(1, "#304d6d");
+      }
 
       ctx.globalCompositeOperation = "source-over";
       ctx.globalAlpha = 1;
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, width, height);
 
-      ctx.globalAlpha = 0.22;
+      ctx.globalAlpha = 0.2;
       ctx.fillStyle = "#ffffff";
       for (let i = -width; i < width * 2; i += 28) {
         ctx.save();
@@ -662,6 +484,7 @@
         ctx.arc(x, y, Math.random() * 2.2 + 0.6, 0, Math.PI * 2);
         ctx.fill();
       }
+
       ctx.globalAlpha = 1;
     }
 
@@ -709,7 +532,7 @@
     }
 
     function resetCard() {
-      pickQuote();
+      pickMessage();
       hasStarted = false;
       instruction.style.opacity = "1";
       resizeCanvas();
@@ -730,7 +553,7 @@
 
     window.addEventListener("resize", resizeCanvas);
 
-    pickQuote();
+    pickMessage();
     resizeCanvas();
   </script>
 </body>
